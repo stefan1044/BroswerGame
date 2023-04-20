@@ -1,0 +1,35 @@
+
+
+
+#canvas{
+    background: lightgray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+
+.triangle {
+    position: absolute;
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+    background: lawngreen;
+}
+.square {
+    background: darkslateblue;
+    position: absolute;
+}
+.circle {
+    background: orange;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.player {
+    background: crimson;
+    position: absolute;
+    height: 6vh;
+    width: 6vh;
+}
