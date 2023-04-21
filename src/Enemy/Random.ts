@@ -12,6 +12,9 @@ class Random extends EnemyBaseClass {
     public move(playerX:number, playerY:number){
 
     }
+    public onHitTarget(): string {
+        return "Over";
+    }
 }
 
 

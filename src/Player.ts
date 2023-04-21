@@ -20,12 +20,12 @@ export default class Player {
     public move(x: number, y: number): void {
         if (x > 97)
             x = 97
-        else if (x < 3)
-            x = 3
-        if (y > 97)
-            y = 97
-        else if (y < 3)
-            y = 3
+        else if (x < 0)
+            x = 0
+        if (y > 94)
+            y = 94
+        else if (y < 0)
+            y = 0
         this.x = x;
         this.y = y;
     }

@@ -12,10 +12,10 @@ export default abstract class EnemyBaseClass {
         this.x = x;
         this.y = y;
         this.id = id;
-        this.speed = Math.random()/100;
+        this.speed = Math.random()/1000;
         if (this.speed < 0.0001)
             this.speed = 0.0001;
-        this.size = Math.random();
+        this.size = Math.floor(Math.random()*6) + 6;
     }
     public getCoordinates(): [number, number]{
         return [this.x, this.y]
@@ -33,4 +33,5 @@ export default abstract class EnemyBaseClass {
         return this.id;
     }
     abstract move(x: number, y: number): void;
+    abstract onHitTarget(): string;
 }

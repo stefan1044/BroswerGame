@@ -5,6 +5,7 @@ import Player from "./src/Player";
 function setMouseCoordinates(event: any){
     mouseX = event.pageX/windowWidth * 100;
     mouseY = event.pageY/windowHeight * 100;
+    console.log(`Mouse coordinates ${mouseX}, ${mouseY}`);
 }
 
 function startGame(numberOfEnemies: number){
@@ -21,8 +22,8 @@ function startGame(numberOfEnemies: number){
         newDiv.id = newEnemy.getId().toString();
         newDiv.style.left = `${coordinates[0].toString()}vw`;
         newDiv.style.top = `${coordinates[1].toString()}vh`;
-        newDiv.style.width = `${Math.floor(newEnemy.getSize() * 6 + 6)}vh`;
-        newDiv.style.height = `${Math.floor(newEnemy.getSize() * 6) + 6}vh`;
+        newDiv.style.width = `${newEnemy.getSize()}vh`;
+        newDiv.style.height = `${newEnemy.getSize()}vh`;
         newDiv.style.zIndex = newEnemy.getId().toString();
         body.appendChild(newDiv);
     }
@@ -31,12 +32,32 @@ function startGame(numberOfEnemies: number){
 
 }
 
+// TODO: Check collision for each enemy type
+function checkCollision(playerCoordinates: [number, number], enemy: EnemyBaseClass): boolean{
+    const enemyCoordinates = enemy.getCoordinates();
+
+    if (enemyCoordinates[0] + enemy.getSize()/2 < playerCoordinates[0])
+        return false;
+    if (enemyCoordinates[0] > playerCoordinates[0] + 3)
+        return false;
+    if (enemyCoordinates[1] + enemy.getSize() <playerCoordinates[1])
+        return false;
+    if (enemyCoordinates[1] > playerCoordinates[1] + 6)
+        return false;
+
+    return true
+
+}
+
 function redraw(){
     const playerCoordinates = player.getCoordinates();
+    console.log(`Player coordinates ${playerCoordinates[0]}, ${playerCoordinates[1]}`);
     document.getElementById("0").style.left = `${playerCoordinates[0]}vw`;
     document.getElementById("0").style.top = `${playerCoordinates[1]}vh`;
 
     for(const enemy of enemies){
+        //console.log(`Coordinates of enemy${enemy.getId()}: ${enemy.getCoordinates()[0]},
+        // ${enemy.getCoordinates()[1]}`)
         document.getElementById(enemy.getId().toString()).style.left = `${enemy.getCoordinates()[0]}vw`;
         document.getElementById(enemy.getId().toString()).style.top = `${enemy.getCoordinates()[1]}vh`;
     }
@@ -52,6 +73,9 @@ function actionQueue(){
 
     for(const enemy of enemies){
         enemy.move(playerCoordinates[0], playerCoordinates[1]);
+        if (checkCollision(playerCoordinates, enemy)){
+            console.log(enemy.onHitTarget());
+        }
     }
 
     redraw();
@@ -60,7 +84,7 @@ function actionQueue(){
 
 const body = document.getElementById("canvas");
 const enemies:Array<EnemyBaseClass> = new Array<EnemyBaseClass>();
-const player = new Player(50, 50, 0.01);
+const player = new Player(50, 50, 0.005);
 const playerDiv = document.createElement("div");
 playerDiv.id = "0";
 playerDiv.className = "player";
@@ -69,6 +93,7 @@ playerDiv.style.top = `50vh`;
 playerDiv.style.zIndex = `10000`;
 body.appendChild(playerDiv);
 
+let score = 0;
 let mouseX:number, mouseY: number;
 const windowHeight: number = window.innerHeight, windowWidth:number = window.innerWidth;
 document.addEventListener("mousemove", setMouseCoordinates);
@@ -76,3 +101,4 @@ document.addEventListener("mousemove", setMouseCoordinates);
 console.log(player.getCoordinates());
 startGame(10);
 setInterval(actionQueue, 5);
+setInterval(() => score++, 1000);
