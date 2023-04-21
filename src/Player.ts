@@ -18,16 +18,17 @@ export default class Player {
     }
 
     public move(x: number, y: number): void {
-        if (x > 97)
-            x = 97
-        else if (x < 0)
-            x = 0
-        if (y > 94)
-            y = 94
-        else if (y < 0)
-            y = 0
-        this.x = x;
-        this.y = y;
+        this.x += (x - this.x)*this.speed/7 + ((x - this.x) > 0? 1:-1)*this.speed;
+        this.y += (y - this.y)*this.speed /7 + ((y - this.y) > 0? 1:-1)*this.speed;
+
+        if (this.x > 97)
+            this.x = 97
+        else if (this.x < 0)
+            this.x = 0
+        if (this.y > 94)
+            this.y = 94
+        else if (this.y < 0)
+            this.y = 0
     }
 
 }

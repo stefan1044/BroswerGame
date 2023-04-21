@@ -13,12 +13,12 @@ class Chaser extends EnemyBaseClass {
         this.x += this.speed * Math.abs(this.x - playerX) * (this.x > playerX? -1:1);
         this.y += this.speed * Math.abs(this.y - playerY) * (this.y > playerY? -1:1);
 
-        if (this.x > 100 - this.size/2)
-            this.x = 100 - this.size/2;
+        if (this.x > 100 - this.width)
+            this.x = 100 - this.width;
         else if (this.x < 0)
             this.x = 0;
-        if (this.y > 100 - this.size)
-            this.y = 100 - this.size;
+        if (this.y > 100 - this.height)
+            this.y = 100 - this.height;
         else if (this.y < 0)
             this.y = 0;
     }
