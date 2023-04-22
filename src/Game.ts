@@ -40,10 +40,6 @@ class Game {
         document.addEventListener("mousemove", this.setMouseCoordinates.bind(this));
     }
 
-    private renderMenu(){
-
-    }
-
     private cleanup(restart: boolean): void{
         this.endMenu.remove();
         this.playerDiv.remove();
@@ -67,7 +63,7 @@ class Game {
     }
 
     private endGame(): void {
-        this.score = 0;
+
 
         clearInterval(this.actionInterval);
         clearInterval(this.scoreInterval);
@@ -88,6 +84,7 @@ class Game {
         menuButton.addEventListener('click', this.cleanup.bind(this, false))
         this.endMenu.appendChild(menuButton);
 
+        this.score = 0;
         for(const enemy of this.enemies){
             enemy.swapBrightness();
         }
