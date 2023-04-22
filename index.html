@@ -7,6 +7,33 @@
     <script type="module" src="index.js" ></script>
 </head>
 <body>
+<div id="difficultyPage">
+    <div id="sliders">
+        <div id="chaserSlider">
+            <h1 id="chaserValue">Chasers: 2</h1>
+            <input type="range" min="1" max="10" value="2" class="slider" id="chaserRange">
+        </div>
+        <div id="randomSlider">
+            <h1 id="randomValue">Randoms: 2</h1>
+            <input type="range" min="0" max="10" value="2" class="slider" id="randomRange">
+        </div>
+        <div id="escapeSlider">
+            <h1 id="escapeValue">Escapes: 1</h1>
+            <input type="range" min="0" max="12" value="1" class="slider" id="escapeRange">
+        </div>
+        <div id="randomEnemySlider">
+            <h1 id="randomEnemyValue">Random enemies: 0</h1>
+            <input type="range" min="0" max="10" value="0" class="slider" id="randomEnemyRange">
+        </div>
+    </div>
+
+    <div id="menuButtons">
+        <button id="startButton" >
+            START
+        </button>
+    </div>
+</div>
+
 <div id="canvas"></div>
 
 </body>

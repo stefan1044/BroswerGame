@@ -16,6 +16,10 @@ class Chaser extends EnemyBaseClass {
         this.x = this.oldX;
         this.y = this.oldY;
     }
+    public stopSpinning(body: HTMLElement): void{
+        this.html.style.animation = "";
+        body.appendChild(this.html);
+    }
 
     public move(playerX: number, playerY: number): void {
         this.oldX = this.x;

@@ -62,3 +62,14 @@
     color: lightseagreen;
     white-space: pre-wrap !important;
 }
+.endMenu button {
+    font-size: 0.8vw;
+    color: lightseagreen;
+    font-weight: bold;
+    width: 6vw;
+    height: 4.5vh;
+    background: lightgray;
+    border-radius: 2vw;
+}
+.endMenuButton {
+}

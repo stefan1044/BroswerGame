@@ -40,7 +40,11 @@ class Game {
         document.addEventListener("mousemove", this.setMouseCoordinates.bind(this));
     }
 
-    private cleanup(): void{
+    private renderMenu(){
+
+    }
+
+    private cleanup(restart: boolean): void{
         this.endMenu.remove();
         this.playerDiv.remove();
         this.scoreDiv.remove();
@@ -54,7 +58,12 @@ class Game {
             this.chasers.pop();
         this.body.style.filter = `brightness(100%)`;
 
-        this.startGame(this.startSetting[0], this.startSetting[1], this.startSetting[2], this.startSetting[3]);
+        if (restart === true) {
+            this.startGame(this.startSetting[0], this.startSetting[1], this.startSetting[2], this.startSetting[3]);
+            return;
+        }
+
+        document.getElementById("difficultyPage").style.display = "initial";
     }
 
     private endGame(): void {
@@ -69,6 +78,15 @@ class Game {
         const endText = document.createElement("h1");
         endText.innerHTML = `Ended game with score ${this.score}\n             Restart?`;
         this.endMenu.appendChild(endText);
+        const restartButton = document.createElement("button");
+        restartButton.innerHTML = `RESTART`;
+        restartButton.addEventListener('click', this.cleanup.bind(this, true));
+        this.endMenu.appendChild(restartButton);
+        const menuButton = document.createElement("button");
+        menuButton.innerHTML = `MENU`;
+        menuButton.className = `endMenuButton`;
+        menuButton.addEventListener('click', this.cleanup.bind(this, false))
+        this.endMenu.appendChild(menuButton);
 
         for(const enemy of this.enemies){
             enemy.swapBrightness();
@@ -76,6 +94,11 @@ class Game {
         this.body.style.filter = `brightness(60%)`;
         this.playerDiv.style.filter = `brightness(70%)`;
         this.playerDiv.style.opacity = `50%`;
+
+        for(const chaser of this.chasers){
+            chaser.stopSpinning(this.body);
+        }
+
         this.body.appendChild(this.endMenu);
 
 
@@ -160,6 +183,7 @@ class Game {
     }
 
     public startGame(numberOfChasers: number, numberOfRandoms: number, numberOfEscapes: number, numberOfRandomEnemies: number) {
+        document.getElementById("difficultyPage").style.display = "none";
         this.startSetting = [numberOfChasers, numberOfRandoms, numberOfEscapes, numberOfRandomEnemies];
         this.score = 0;
         this.scoreDiv = document.createElement("h1");
