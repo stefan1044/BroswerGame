@@ -49,5 +49,16 @@
     font-size: 7vw;
     top:30%;
     left:45%;
-
+}
+.endMenu {
+    position: absolute;
+    top: 30%;
+    left: 35%;
+    z-index: 2000001;
+}
+.endMenu h1 {
+    filter: brightness(100%);
+    font-size: 3vw;
+    color: lightseagreen;
+    white-space: pre-wrap !important;
 }

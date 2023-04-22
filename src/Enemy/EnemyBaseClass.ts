@@ -1,46 +1,55 @@
-import {EnemyTypes, EnemyShapes} from "./EnemyEnums";
+import {EnemyShapes, EnemyTypes} from "./EnemyEnums";
 
 export default abstract class EnemyBaseClass {
-    private readonly id:number;
-    protected x:number;
-    protected y:number;
-    protected speed:number;
-    protected readonly height:number;
-    protected readonly width:number;
+    private readonly id: number;
+    protected x: number;
+    protected y: number;
+    protected speed: number;
+    protected readonly height: number;
+    protected readonly width: number;
     protected shape: EnemyShapes;
     protected html: HTMLDivElement;
     protected type: EnemyTypes;
+    private brightness: boolean;
+
     protected constructor(x: number, y: number, id: number) {
         this.x = x;
         this.y = y;
         this.id = id;
-        this.speed = Math.random()/500;
+        this.speed = Math.random() / 500;
         if (this.speed < 0.001)
             this.speed = 0.001;
-        const size = Math.floor(Math.random()*6) + 6;
-        this.height =size;
-        this.width = size*0.48802;
+        const size = Math.floor(Math.random() * 6) + 6;
+        this.height = size;
+        this.width = size * 0.48802;
+        this.brightness = true;
     }
-    public getCoordinates(): [number, number]{
+
+    public getCoordinates(): [number, number] {
         return [this.x, this.y]
     }
-    public getHeight(): number{
+
+    public getHeight(): number {
         return this.height;
     }
-    public getWidth(): number{
+
+    public getWidth(): number {
         return this.width;
     }
-    public getSpeed(): number{
+
+    public getSpeed(): number {
         return this.speed;
     }
-    public getShape(): EnemyShapes{
+
+    public getShape(): EnemyShapes {
         return this.shape;
     }
-    public getId():number{
+
+    public getId(): number {
         return this.id;
     }
 
-    public appendToHtml(body: HTMLElement){
+    public appendToHtml(body: HTMLElement) {
         this.html = document.createElement("div");
         const coordinates = this.getCoordinates();
 
@@ -53,23 +62,37 @@ export default abstract class EnemyBaseClass {
         this.html.style.zIndex = this.getId().toString();
         body.appendChild(this.html);
     }
-    public checkCollision(enemy: EnemyBaseClass): boolean{
+    public swapBrightness(): void{
+        if (this.brightness === true){
+            this.brightness = false;
+            this.html.style.filter = `brightness(70%)`;
+            this.html.style.opacity = `50%`;
+            return
+        }
+        this.brightness = true;
+        this.html.style.filter = `brightness(100%)`
+        this.html.style.opacity = `100%`;
+    }
+
+    public checkCollision(enemy: EnemyBaseClass): boolean {
         const enemyCoordinates = enemy.getCoordinates();
-        if (enemyCoordinates[0] + enemy.getWidth() < this.x){
+        if (enemyCoordinates[0] + enemy.getWidth() < this.x) {
             return false;
         }
-        if (enemyCoordinates[0] > this.x + this.width){
+        if (enemyCoordinates[0] > this.x + this.width) {
             return false;
         }
-        if (enemyCoordinates[1] + enemy.getHeight() < this.y){
+        if (enemyCoordinates[1] + enemy.getHeight() < this.y) {
             return false;
         }
-        if (enemyCoordinates[1] > this.y + this.height){
+        if (enemyCoordinates[1] > this.y + this.height) {
             return false;
         }
 
         return true;
     }
+
     abstract move(x: number, y: number): void;
+
     abstract onHitTarget(): string;
 }

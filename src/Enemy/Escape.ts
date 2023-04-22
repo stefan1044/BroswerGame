@@ -23,8 +23,8 @@ class Escape extends EnemyBaseClass {
         if (!this.canMove)
             return;
 
-        this.x += this.speed * (100 - Math.abs(this.x - playerX)/2 + 1) * (this.x > playerX ? 1 : -1);
-        this.y += this.speed * (100 - Math.abs(this.y - playerY)/2 + 1) * (this.y > playerY ? 1 : -1);
+        this.x += this.speed * (100 - Math.abs(this.x - playerX) / 2 + 1) * (this.x > playerX ? 1 : -1);
+        this.y += this.speed * (100 - Math.abs(this.y - playerY) / 2 + 1) * (this.y > playerY ? 1 : -1);
 
         if (this.x > 100 - this.width)
             this.x = 100 - this.width;
@@ -73,16 +73,16 @@ class Escape extends EnemyBaseClass {
             this.pushY = Math.random() / 4 * (Math.random() > 0.5 ? 1 : -1);
             this.push(0);
             return "Score";
-        } else if (this.evade){
+        } else if (this.evade) {
             this.evade = false;
             setTimeout(() => {
                 this.evade = true;
-            }, 50);
+            }, 25);
             this.pushX *= 1.5;
             this.pushY *= 1.5;
         }
-        return "";
 
+        return "";
     }
 }
 
