@@ -13,17 +13,18 @@ class Escape extends EnemyBaseClass {
         super(x, y, id);
         this.type = EnemyTypes.Escape;
         this.shape = EnemyShapes.Circle;
+        this.speed *= 0.5;
         this.canGiveScore = true;
         this.canMove = true;
         this.evade = true;
     }
 
-    public move(playerX: number, playerY: number) {
+    public move(playerX: number, playerY: number): void {
         if (!this.canMove)
             return;
 
-        this.x += this.speed * (100 - Math.abs(this.x - playerX)) * (this.x > playerX ? 1 : -1);
-        this.y += this.speed * (100 - Math.abs(this.y - playerY)) * (this.y > playerY ? 1 : -1);
+        this.x += this.speed * (100 - Math.abs(this.x - playerX)/2 + 1) * (this.x > playerX ? 1 : -1);
+        this.y += this.speed * (100 - Math.abs(this.y - playerY)/2 + 1) * (this.y > playerY ? 1 : -1);
 
         if (this.x > 100 - this.width)
             this.x = 100 - this.width;
@@ -54,6 +55,7 @@ class Escape extends EnemyBaseClass {
             this.canMove = true;
             this.canGiveScore = true;
             this.html.style.opacity = "100%"
+            this.evade = true;
             return;
         }
         setTimeout(() => {
@@ -67,10 +69,8 @@ class Escape extends EnemyBaseClass {
             this.canGiveScore = false;
             this.canMove = false;
             this.html.style.opacity = "30%"
-            this.pushX = Math.random() / 3 * (Math.random() > 0.5 ? 1 : -1);
-            this.pushY = Math.random() / 3 * (Math.random() > 0.5 ? 1 : -1);
-            const oldSpeed = this.speed;
-            setTimeout(() => this.speed = oldSpeed, 500);
+            this.pushX = Math.random() / 4 * (Math.random() > 0.5 ? 1 : -1);
+            this.pushY = Math.random() / 4 * (Math.random() > 0.5 ? 1 : -1);
             this.push(0);
             return "Score";
         } else if (this.evade){
@@ -78,9 +78,8 @@ class Escape extends EnemyBaseClass {
             setTimeout(() => {
                 this.evade = true;
             }, 50);
-            this.speed *= 2;
-            this.pushX = Math.random() / 3 * (Math.random() > 0.5 ? 1 : -1);
-            this.pushY = Math.random() / 3 * (Math.random() > 0.5 ? 1 : -1);
+            this.pushX *= 1.5;
+            this.pushY *= 1.5;
         }
         return "";
 

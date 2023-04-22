@@ -9,18 +9,24 @@ class Random extends EnemyBaseClass {
         super(x, y, id);
         this.type = EnemyTypes.Random;
         this.shape = EnemyShapes.Square;
-        this.xPath = Math.random()  * (Math.random() > 0.5? 1:-1) * 110;
-        this.yPath = Math.random()  * (Math.random() > 0.5? 1:-1) * 110;
+        this.xPath = Math.random()  * (Math.random() > 0.5? 1:-1) * 80;
+        this.yPath = Math.random()  * (Math.random() > 0.5? 1:-1) * 80;
 
     }
 
     private changePath():void{
         this.xPath = Math.random()  * (Math.random() > 0.5? 1:-1) * 110;
         this.yPath = Math.random()  * (Math.random() > 0.5? 1:-1) * 110;
+        if (this.xPath < 15){
+            this.xPath += 15;
+        }
+        if (this.yPath < 15){
+            this.yPath += 15;
+        }
+        //console.log(`PATHS: ${this.xPath}, ${this.yPath}`);
     }
 
     public move(){
-        console.log("HERE");
         if (this.x > 100 - this.width) {
             this.x = 100 - this.width;
             this.changePath();

@@ -12,8 +12,12 @@ class EnemyFactory {
     public getRandomEnemy(){
 
         const temp:number = Math.floor(Math.random() * 3);
-        const x: number = Math.floor(Math.random() * 90) + 3;
-        const y: number = Math.floor(Math.random() * 90) + 3;
+        let x: number = Math.floor(Math.random() * 88);
+        let y: number = Math.floor(Math.random() * 88);
+        while((x>35 && x<65) && (y>35 && y<65)){
+            x = Math.random() * 88;
+            y = Math.random() * 88;
+        }
 
         if (temp === 1){
             this.enemiesCreated++;
@@ -29,8 +33,13 @@ class EnemyFactory {
         }
     }
     public getSpecificEnemy(type:  EnemyTypes): Chaser | Escape | Random {
-        const x: number = Math.floor(Math.random() * 90) + 3;
-        const y: number = Math.floor(Math.random() * 90) + 3;
+        let x: number = Math.floor(Math.random() * 88);
+        let y: number = Math.floor(Math.random() * 88);
+        while((x>35 && x<65) && (y>35 && y<65)){
+            x = Math.random() * 88;
+            y = Math.random() * 88;
+        }
+
         this.enemiesCreated++;
         if (type === EnemyTypes.Chaser){
             return new Chaser(x, y, this.enemiesCreated);

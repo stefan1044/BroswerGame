@@ -8,7 +8,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    z-index: -1;
+    z-index: -2;
 }
 
 
@@ -16,6 +16,15 @@
     position: absolute;
     clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
     background: lawngreen;
+    animation: rotating 7s linear infinite;
+}
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(359deg);
+    }
 }
 .square {
     background: darkslateblue;
@@ -32,4 +41,13 @@
     position: absolute;
     height: 6vh;
     width: 6vh;
+}
+.score {
+    opacity: 50%;
+    color: lightpink;
+    position: absolute;
+    font-size: 7vw;
+    top:30%;
+    left:45%;
+
 }

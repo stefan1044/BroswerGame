@@ -53,6 +53,23 @@ export default abstract class EnemyBaseClass {
         this.html.style.zIndex = this.getId().toString();
         body.appendChild(this.html);
     }
+    public checkCollision(enemy: EnemyBaseClass): boolean{
+        const enemyCoordinates = enemy.getCoordinates();
+        if (enemyCoordinates[0] + enemy.getWidth() < this.x){
+            return false;
+        }
+        if (enemyCoordinates[0] > this.x + this.width){
+            return false;
+        }
+        if (enemyCoordinates[1] + enemy.getHeight() < this.y){
+            return false;
+        }
+        if (enemyCoordinates[1] > this.y + this.height){
+            return false;
+        }
+
+        return true;
+    }
     abstract move(x: number, y: number): void;
     abstract onHitTarget(): string;
 }
