@@ -1,5 +1,7 @@
 import {EnemyShapes, EnemyTypes} from "./EnemyEnums";
 
+
+// Abstract class that defines the common characteristics of all enemies.
 export default abstract class EnemyBaseClass {
     private readonly id: number;
     protected x: number;
@@ -25,6 +27,7 @@ export default abstract class EnemyBaseClass {
         this.brightness = true;
     }
 
+    // Getters for different attributes
     public getCoordinates(): [number, number] {
         return [this.x, this.y]
     }
@@ -49,6 +52,7 @@ export default abstract class EnemyBaseClass {
         return this.id;
     }
 
+    // Method to be called once we want to render the enemy. The html div is stored for later changes
     public appendToHtml(body: HTMLElement) {
         this.html = document.createElement("div");
         const coordinates = this.getCoordinates();
@@ -62,6 +66,8 @@ export default abstract class EnemyBaseClass {
         this.html.style.zIndex = this.getId().toString();
         body.appendChild(this.html);
     }
+
+    // Method that lowers the brightness and opacity of enemies. Called when the menu opens.
     public swapBrightness(): void{
         if (this.brightness === true){
             this.brightness = false;
@@ -74,6 +80,7 @@ export default abstract class EnemyBaseClass {
         this.html.style.opacity = `100%`;
     }
 
+    // Method that checks if an enemy is in collision with another enemy.
     public checkCollision(enemy: EnemyBaseClass): boolean {
         const enemyCoordinates = enemy.getCoordinates();
         if (enemyCoordinates[0] + enemy.getWidth() < this.x) {
@@ -92,6 +99,7 @@ export default abstract class EnemyBaseClass {
         return true;
     }
 
+    // Method that need to be defined by all enemies. All enemies should be able to move and have a trigger on-hit.
     abstract move(x: number, y: number): void;
 
     abstract onHitTarget(): string;

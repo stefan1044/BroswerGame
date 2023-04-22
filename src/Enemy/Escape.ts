@@ -19,6 +19,7 @@ class Escape extends EnemyBaseClass {
         this.evade = true;
     }
 
+    // Escapes will run from the player. The closer the player is to them the faster they get.
     public move(playerX: number, playerY: number): void {
         if (!this.canMove)
             return;
@@ -36,6 +37,7 @@ class Escape extends EnemyBaseClass {
             this.y = 0;
     }
 
+    // Method to move Escapes in a specific direction.
     private forceMove(): void {
         this.x += this.pushX;
         this.y += this.pushY;
@@ -50,6 +52,7 @@ class Escape extends EnemyBaseClass {
             this.y = 0;
     }
 
+    // Method that initiates the push in a direction.
     private push(step: number): void {
         if (step === 100) {
             this.canMove = true;
@@ -64,6 +67,8 @@ class Escape extends EnemyBaseClass {
         }, 5)
     }
 
+    // Escapes give points if touched, but only every 0.5 seconds. When touched they turn less opaque and gain a burst
+    // of speed in a direction. If touched again they will change their direction and increase their speed.
     public onHitTarget(): string {
         if (this.canGiveScore) {
             this.canGiveScore = false;

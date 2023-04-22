@@ -23,10 +23,10 @@ class Game {
     private scoreInterval: NodeJS.Timer;
     private startSetting: Array<number>;
 
+    // Event listener for mouse coordinates.
     private setMouseCoordinates(event: any) {
         this.mouseX = event.pageX / this.windowWidth * 100;
         this.mouseY = event.pageY / this.windowHeight * 100;
-        // console.log(`Mouse coordinates ${mouseX}, ${mouseY}`);
     }
 
     constructor() {
@@ -40,6 +40,7 @@ class Game {
         document.addEventListener("mousemove", this.setMouseCoordinates.bind(this));
     }
 
+    // Performs cleanup once the game is over and displays the menu or restarts.
     private cleanup(restart: boolean): void{
         this.endMenu.remove();
         this.playerDiv.remove();
@@ -62,6 +63,7 @@ class Game {
         document.getElementById("difficultyPage").style.display = "initial";
     }
 
+    // Cleans up intervals and display end menu.
     private endGame(): void {
 
 
@@ -97,10 +99,9 @@ class Game {
         }
 
         this.body.appendChild(this.endMenu);
-
-
     }
 
+    // Helper method to shuffle an array using the Durstenfeld algorithm.
     private shuffleArray(array: Array<Chaser>): void {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -108,21 +109,20 @@ class Game {
         }
     }
 
+    // Draws all the graphic components
     private redraw(): void {
         const playerCoordinates = this.player.getCoordinates();
-        // console.log(`Player coordinates ${playerCoordinates[0]}, ${playerCoordinates[1]}`);
         document.getElementById("0").style.left = `${playerCoordinates[0]}vw`;
         document.getElementById("0").style.top = `${playerCoordinates[1]}vh`;
 
         for (const enemy of this.enemies) {
-            //console.log(`Coordinates of enemy${enemy.getId()}: ${enemy.getCoordinates()[0]},
-            // ${enemy.getCoordinates()[1]}`)
             document.getElementById(enemy.getId().toString()).style.left = `${enemy.getCoordinates()[0]}vw`;
             document.getElementById(enemy.getId().toString()).style.top = `${enemy.getCoordinates()[1]}vh`;
         }
         this.scoreDiv.innerHTML = `${this.score}`;
     }
 
+    // Gets all the actions of the components and checks collisions and sets new positions.
     private actionQueue() {
         const playerCoordinates = this.player.getCoordinates();
         if (this.mouseX !== undefined && this.mouseY !== undefined) {
@@ -134,11 +134,9 @@ class Game {
                 const collisionResponse: string = enemy.onHitTarget();
 
                 if (collisionResponse === "Over") {
-                    // console.log(`END: ${enemy.getCoordinates()}`);
                     this.endGame();
                 } else if (collisionResponse === "Score") {
                     this.score += 5;
-                    //console.log(`SCORE`);
                 }
             }
 
@@ -156,7 +154,7 @@ class Game {
                 collisionMatrix[i][j] = false;
             }
         }
-        // console.log(collisionMatrix);
+
         this.shuffleArray(this.chasers);
         for (let i = 0; i < this.chasers.length; i++) {
 
@@ -179,6 +177,7 @@ class Game {
         this.redraw();
     }
 
+    // Initial game setup
     public startGame(numberOfChasers: number, numberOfRandoms: number, numberOfEscapes: number, numberOfRandomEnemies: number) {
         document.getElementById("difficultyPage").style.display = "none";
         this.startSetting = [numberOfChasers, numberOfRandoms, numberOfEscapes, numberOfRandomEnemies];
@@ -201,7 +200,6 @@ class Game {
         this.actionInterval = setInterval(this.actionQueue.bind(this), 5);
         this.scoreInterval = setInterval(() => {
             this.score++;
-            //console.log(`SCORE IS ${score}`);
         }, 1000);
 
         const enemyFactory = new EnemyFactory();

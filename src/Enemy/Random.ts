@@ -15,6 +15,7 @@ class Random extends EnemyBaseClass {
 
     }
 
+    // Method to change the path of a random and have a minimum speed.
     private changePath(): void {
         this.xPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 110;
         this.yPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 110;
@@ -27,6 +28,7 @@ class Random extends EnemyBaseClass {
         //console.log(`PATHS: ${this.xPath}, ${this.yPath}`);
     }
 
+    // Randoms will move along their given path until the edge of the screen, when they change their path and speed.
     public move() {
         if (this.x > 100 - this.width) {
             this.x = 100 - this.width;
@@ -48,6 +50,7 @@ class Random extends EnemyBaseClass {
 
     }
 
+    // Randoms end the game on collision.
     public onHitTarget(): string {
         return "Over";
     }

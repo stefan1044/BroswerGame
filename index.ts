@@ -1,10 +1,10 @@
 import Game from "./src/Game";
 
+// Listeners for slider elements
 let chaserValue = document.getElementById("chaserValue");
 let randomValue = document.getElementById("randomValue");
 let escapeValue = document.getElementById("escapeValue");
 let randomEnemyValue = document.getElementById("randomEnemyValue");
-
 
 const chaserSlider = document.getElementById("chaserRange");
 const randomSlider = document.getElementById("randomRange");
@@ -26,6 +26,7 @@ randomEnemySlider.oninput = () => {
 
 
 const game = new Game();
+// Start button listener
 document.getElementById("startButton").addEventListener("click", () => {
     const chasers = parseInt((document.getElementById("chaserRange") as HTMLInputElement).value);
     const randoms = parseInt((document.getElementById("randomRange") as HTMLInputElement).value);

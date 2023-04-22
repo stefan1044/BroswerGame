@@ -12,15 +12,19 @@ class Chaser extends EnemyBaseClass {
         this.shape = EnemyShapes.Triangle;
     }
 
+    // Method to revert to old position if it collides with something
     public revert(): void {
         this.x = this.oldX;
         this.y = this.oldY;
     }
+
+    // Method to stop the spinning animation
     public stopSpinning(body: HTMLElement): void{
         this.html.style.animation = "";
         body.appendChild(this.html);
     }
 
+    // Chasers follow the player. If the player is farther away they move faster.
     public move(playerX: number, playerY: number): void {
         this.oldX = this.x;
         this.oldY = this.y;
@@ -38,6 +42,7 @@ class Chaser extends EnemyBaseClass {
 
     }
 
+    // Chasers end the game on collision.
     public onHitTarget(): string {
         return "Over";
     }
