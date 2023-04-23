@@ -57,7 +57,7 @@ class Game {
 
         if (restart === true) {
             this.startGame(this.startSetting[0], this.startSetting[1], this.startSetting[2], this.startSetting[3],
-                this.startSetting[4], this.startSetting[5]);
+                this.startSetting[4], this.startSetting[5], this.startSetting[6] === 1);
             return;
         }
 
@@ -182,10 +182,10 @@ class Game {
 
     // Initial game setup
     public startGame(numberOfChasers: number, numberOfRandoms: number, numberOfEscapes: number,
-                     numberOfRandomEnemies: number, enemySpeedMultiplier: number, playerSpeedMultiplier: number) {
+                     numberOfRandomEnemies: number, enemySpeedMultiplier: number, playerSpeedMultiplier: number, playerMode: boolean) {
         document.getElementById("difficultyPage").style.display = "none"; // Hide the menu page
         this.startSetting = [numberOfChasers, numberOfRandoms, numberOfEscapes, numberOfRandomEnemies, enemySpeedMultiplier,
-            playerSpeedMultiplier];
+            playerSpeedMultiplier, playerMode === true? 1:0];
 
         // Create score component
         this.score = 0;
@@ -196,7 +196,7 @@ class Game {
         this.body.appendChild(this.scoreDiv);
 
         // Create player component
-        this.player = new Player(50, 50, 0.06 * (playerSpeedMultiplier/100));
+        this.player = new Player(50, 50, 0.06 * (playerSpeedMultiplier/100), playerMode);
         this.playerDiv = document.createElement("div");
         this.playerDiv.id = "0";
         this.playerDiv.className = "player";

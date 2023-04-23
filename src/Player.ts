@@ -5,12 +5,14 @@ import EnemyBaseClass from "./Enemy/EnemyBaseClass";
 export default class Player {
     private x: number;
     private y: number;
+    private cursor: boolean;
     private readonly speed: number;
 
-    constructor(x: number, y: number, speed: number) {
+    constructor(x: number, y: number, speed: number, cursor: boolean) {
         this.x = x;
         this.y = y;
         this.speed = speed;
+        this.cursor = cursor;
     }
 
     // Getters.
@@ -24,6 +26,11 @@ export default class Player {
 
     // Players move toward their cursor, gaining bonus speed if the cursor is farther away.
     public move(x: number, y: number): void {
+        if (this.cursor ){
+            this.x = x - 1.5;
+            this.y = y - 3;
+            return;
+        }
         this.x += (x - this.x) * this.speed / 10 + ((x - this.x) > 0 ? 1 : -1) * this.speed;
         this.y += (y - this.y) * this.speed / 10 + ((y - this.y) > 0 ? 1 : -1) * this.speed;
 

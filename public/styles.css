@@ -1,6 +1,9 @@
 #sliders {
     margin-left: 40vw;
 }
+#playerSpeedSlider{
+    display: none;
+}
 #menuButtons {
 
 }
@@ -71,6 +74,65 @@ input[type="range"]::-ms-fill-upper {
 }
 
 
+
+#radio {
+    position: absolute;
+    top:62vh;
+    left: 60vw;
+}
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+.container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+.container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+
+
 #canvas{
     background: lightgray;
     position: fixed;
@@ -117,11 +179,11 @@ input[type="range"]::-ms-fill-upper {
     position: absolute;
     font-size: 7vw;
     top:30%;
-    left:45%;
+    left:48%;
 }
 .endMenu {
     position: absolute;
-    top: 30%;
+    top: 25%;
     left: 35%;
     z-index: 2000001;
 }
@@ -132,6 +194,8 @@ input[type="range"]::-ms-fill-upper {
     white-space: pre-wrap !important;
 }
 .endMenu button {
+    position: absolute;
+    left:12vw;
     font-size: 1vw;
     color: lightseagreen;
     font-weight: bold;
@@ -141,6 +205,5 @@ input[type="range"]::-ms-fill-upper {
     border-radius: 2vw;
 }
 .endMenuButton {
-    position: absolute;
-    left:25vw;
+    top:30vh;
 }

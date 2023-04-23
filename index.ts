@@ -35,6 +35,27 @@ playerSpeedSlider.oninput = () => {
     playerSpeedValue.innerHTML = `Player speed: ${(playerSpeedSlider as HTMLInputElement).value}%`;
 }
 
+const followMode = document.getElementById("follow");
+const cursorMode = document.getElementById("cursor");
+
+followMode.addEventListener("click", () => {
+    if ((cursorMode as HTMLInputElement).checked === true){
+        (cursorMode as HTMLInputElement).checked = false;
+        document.getElementById("playerSpeedSlider").style.display = "initial";
+    }
+    else{
+        (followMode as HTMLInputElement).checked = true;
+    }
+})
+cursorMode.addEventListener("click", () => {
+    if ((followMode as HTMLInputElement).checked === true){
+        (followMode as HTMLInputElement).checked = false;
+        document.getElementById("playerSpeedSlider").style.display = "none";
+    }
+    else{
+        (cursorMode as HTMLInputElement).checked = true;
+    }
+})
 
 const game = new Game();
 // Start button listener
@@ -46,8 +67,7 @@ document.getElementById("startButton").addEventListener("click", () => {
     const enemySpeedMultiplier = parseInt((document.getElementById("enemySpeedRange") as HTMLInputElement).value);
     const playerSpeedMultiplier = parseInt((document.getElementById("playerSpeedRange") as HTMLInputElement).value);
 
-
-    game.startGame(chasers, randoms, escapes, randomEnemies, enemySpeedMultiplier, playerSpeedMultiplier);
+    game.startGame(chasers, randoms, escapes, randomEnemies, enemySpeedMultiplier, playerSpeedMultiplier, (cursorMode as HTMLInputElement).checked);
 });
 
 
