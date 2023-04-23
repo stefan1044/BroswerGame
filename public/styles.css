@@ -63,13 +63,15 @@
     white-space: pre-wrap !important;
 }
 .endMenu button {
-    font-size: 0.8vw;
+    font-size: 1vw;
     color: lightseagreen;
     font-weight: bold;
     width: 6vw;
-    height: 4.5vh;
+    height: 6vh;
     background: lightgray;
     border-radius: 2vw;
 }
 .endMenuButton {
+    position: absolute;
+    left:25vw;
 }

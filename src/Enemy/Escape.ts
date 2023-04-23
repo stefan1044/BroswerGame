@@ -9,8 +9,8 @@ class Escape extends EnemyBaseClass {
     private pushX: number;
     private pushY: number;
 
-    constructor(x: number, y: number, id: number) {
-        super(x, y, id);
+    constructor(x: number, y: number, id: number, speedMultiplier: number) {
+        super(x, y, id, speedMultiplier);
         this.type = EnemyTypes.Escape;
         this.shape = EnemyShapes.Circle;
         this.speed *= 0.5;
@@ -74,8 +74,8 @@ class Escape extends EnemyBaseClass {
             this.canGiveScore = false;
             this.canMove = false;
             this.html.style.opacity = "30%"
-            this.pushX = Math.random() / 4 * (Math.random() > 0.5 ? 1 : -1);
-            this.pushY = Math.random() / 4 * (Math.random() > 0.5 ? 1 : -1);
+            this.pushX = Math.random() / 5 * (Math.random() > 0.5 ? 1 : -1) * this.speedMultiplier;
+            this.pushY = Math.random() / 5 * (Math.random() > 0.5 ? 1 : -1) * this.speedMultiplier;
             this.push(0);
             return "Score";
         } else if (this.evade) {

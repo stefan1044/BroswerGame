@@ -7,6 +7,7 @@ export default abstract class EnemyBaseClass {
     protected x: number;
     protected y: number;
     protected speed: number;
+    protected speedMultiplier: number;
     protected readonly height: number;
     protected readonly width: number;
     protected shape: EnemyShapes;
@@ -14,13 +15,16 @@ export default abstract class EnemyBaseClass {
     protected type: EnemyTypes;
     private brightness: boolean;
 
-    protected constructor(x: number, y: number, id: number) {
+    protected constructor(x: number, y: number, id: number, speedMultiplier: number) {
         this.x = x;
         this.y = y;
         this.id = id;
-        this.speed = Math.random() / 500;
-        if (this.speed < 0.001)
-            this.speed = 0.001;
+        console.log(`Enemy speed multiplier:${speedMultiplier}`);
+
+        this.speed = (Math.random() / 250) * speedMultiplier;
+        this.speedMultiplier = speedMultiplier;
+        if (this.speed < 0.001 * speedMultiplier)
+            this.speed = 0.001 * speedMultiplier;
         const size = Math.floor(Math.random() * 6) + 6;
         this.height = size;
         this.width = size * 0.48802;

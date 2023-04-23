@@ -56,7 +56,8 @@ class Game {
         this.body.style.filter = `brightness(100%)`;
 
         if (restart === true) {
-            this.startGame(this.startSetting[0], this.startSetting[1], this.startSetting[2], this.startSetting[3]);
+            this.startGame(this.startSetting[0], this.startSetting[1], this.startSetting[2], this.startSetting[3],
+                this.startSetting[4], this.startSetting[5]);
             return;
         }
 
@@ -65,7 +66,6 @@ class Game {
 
     // Cleans up intervals and display end menu.
     private endGame(): void {
-
 
         clearInterval(this.actionInterval);
         clearInterval(this.scoreInterval);
@@ -134,7 +134,10 @@ class Game {
                 const collisionResponse: string = enemy.onHitTarget();
 
                 if (collisionResponse === "Over") {
+                    this.redraw();
                     this.endGame();
+                    console.log(`Killed by enemy:${enemy.getId()}` );
+                    return;
                 } else if (collisionResponse === "Score") {
                     this.score += 5;
                 }
@@ -178,9 +181,13 @@ class Game {
     }
 
     // Initial game setup
-    public startGame(numberOfChasers: number, numberOfRandoms: number, numberOfEscapes: number, numberOfRandomEnemies: number) {
-        document.getElementById("difficultyPage").style.display = "none";
-        this.startSetting = [numberOfChasers, numberOfRandoms, numberOfEscapes, numberOfRandomEnemies];
+    public startGame(numberOfChasers: number, numberOfRandoms: number, numberOfEscapes: number,
+                     numberOfRandomEnemies: number, enemySpeedMultiplier: number, playerSpeedMultiplier: number) {
+        document.getElementById("difficultyPage").style.display = "none"; // Hide the menu page
+        this.startSetting = [numberOfChasers, numberOfRandoms, numberOfEscapes, numberOfRandomEnemies, enemySpeedMultiplier,
+            playerSpeedMultiplier];
+
+        // Create score component
         this.score = 0;
         this.scoreDiv = document.createElement("h1");
         this.scoreDiv.className = "score";
@@ -188,7 +195,8 @@ class Game {
         this.scoreDiv.style.zIndex = `-1`;
         this.body.appendChild(this.scoreDiv);
 
-        this.player = new Player(50, 50, 0.05);
+        // Create player component
+        this.player = new Player(50, 50, 0.05 * (playerSpeedMultiplier/100));
         this.playerDiv = document.createElement("div");
         this.playerDiv.id = "0";
         this.playerDiv.className = "player";
@@ -202,7 +210,7 @@ class Game {
             this.score++;
         }, 1000);
 
-        const enemyFactory = new EnemyFactory();
+        const enemyFactory = new EnemyFactory(enemySpeedMultiplier);
 
         for (let i: number = 0; i < numberOfChasers; i++) {
             let newEnemy = enemyFactory.getSpecificEnemy(EnemyTypes.Chaser);

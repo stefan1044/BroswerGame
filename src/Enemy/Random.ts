@@ -6,26 +6,22 @@ class Random extends EnemyBaseClass {
     private xPath: number;
     private yPath: number;
 
-    constructor(x: number, y: number, id: number) {
-        super(x, y, id);
+    constructor(x: number, y: number, id: number, speedMultiplier: number) {
+        super(x, y, id, speedMultiplier);
         this.type = EnemyTypes.Random;
         this.shape = EnemyShapes.Square;
-        this.xPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 80;
-        this.yPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 80;
-
+        this.xPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 50;
+        this.yPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 50;
     }
 
     // Method to change the path of a random and have a minimum speed.
     private changePath(): void {
-        this.xPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 110;
-        this.yPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 110;
-        if (this.xPath < 15) {
-            this.xPath += 15;
+        this.xPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 80;
+        this.yPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 80;
+        while (Math.abs(this.xPath) + Math.abs(this.yPath) < 40){
+            this.xPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 80;
+            this.yPath = Math.random() * (Math.random() > 0.5 ? 1 : -1) * 80;
         }
-        if (this.yPath < 15) {
-            this.yPath += 15;
-        }
-        //console.log(`PATHS: ${this.xPath}, ${this.yPath}`);
     }
 
     // Randoms will move along their given path until the edge of the screen, when they change their path and speed.
