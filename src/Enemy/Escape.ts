@@ -74,15 +74,15 @@ class Escape extends EnemyBaseClass {
             this.canGiveScore = false;
             this.canMove = false;
             this.html.style.opacity = "30%"
-            this.pushX = Math.random() / 5 * (Math.random() > 0.5 ? 1 : -1) * this.speedMultiplier;
-            this.pushY = Math.random() / 5 * (Math.random() > 0.5 ? 1 : -1) * this.speedMultiplier;
+            this.pushX = Math.random() / 6 * (Math.random() > 0.5 ? 1 : -1) * this.speedMultiplier;
+            this.pushY = Math.random() / 6 * (Math.random() > 0.5 ? 1 : -1) * this.speedMultiplier;
             this.push(0);
             return "Score";
         } else if (this.evade) {
             this.evade = false;
             setTimeout(() => {
                 this.evade = true;
-            }, 25);
+            }, 50);
             this.pushX *= 1.5;
             this.pushY *= 1.5;
         }

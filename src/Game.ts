@@ -196,7 +196,7 @@ class Game {
         this.body.appendChild(this.scoreDiv);
 
         // Create player component
-        this.player = new Player(50, 50, 0.05 * (playerSpeedMultiplier/100));
+        this.player = new Player(50, 50, 0.06 * (playerSpeedMultiplier/100));
         this.playerDiv = document.createElement("div");
         this.playerDiv.id = "0";
         this.playerDiv.className = "player";

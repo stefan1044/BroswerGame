@@ -1,4 +1,74 @@
+#sliders {
+    margin-left: 40vw;
+}
+#menuButtons {
 
+}
+#startButton {
+    margin-top: 5vh;
+    margin-left: 43vw;
+    font-family: Alegreya Sans SC, serif;
+    font-size: 1.5vw;
+    font-weight: bold;
+    color: rgba(135, 0, 0, 0.8);
+    background: rgba(116, 214, 233, 0.7);
+    height: 5vh;
+    width: 10vw;
+    border-radius: 1vw;
+    border: transparent;
+}
+#startButton:hover {
+    margin-left: 42.5vw;
+    margin-top: 4.75vh;
+    color: rgba(135, 0, 0, 1);
+    font-size: 1.75vw;
+    height: 5.5vh;
+    width: 11vw;
+    background: rgba(116, 214, 233, 1);
+}
+
+#sliders h1 {
+    font-family: Alegreya Sans SC, serif;
+    font-size: 1.5vw;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    input[type='range'] {
+        overflow: hidden;
+        width: 15vw;
+        -webkit-appearance: none;
+        background-color: darkred;
+    }
+
+    input[type='range']::-webkit-slider-runnable-track {
+        height: 1.7vh;
+        -webkit-appearance: none;
+        color: #13bba4;
+        margin-top: -1px;
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+        width: 1vw;
+        -webkit-appearance: none;
+        height: 1.7vh;
+        cursor: ew-resize;
+        background: springgreen;
+        box-shadow: -15vw 0 0 15vw springgreen;
+    }
+
+}
+input[type="range"]::-moz-range-progress {
+    background-color: springgreen;
+}
+input[type="range"]::-moz-range-track {
+    background-color: #9a905d;
+}
+
+input[type="range"]::-ms-fill-lower {
+    background-color: springgreen;
+}
+input[type="range"]::-ms-fill-upper {
+    background-color: #9a905d;
+}
 
 
 #canvas{
@@ -10,7 +80,6 @@
     width: 100%;
     z-index: -2;
 }
-
 
 .triangle {
     position: absolute;
