@@ -101,14 +101,6 @@ class Game {
         this.body.appendChild(this.endMenu);
     }
 
-    // Helper method to shuffle an array using the Durstenfeld algorithm.
-    private shuffleArray(array: Array<Chaser>): void {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
     // Draws all the graphic components
     private redraw(): void {
         const playerCoordinates = this.player.getCoordinates();
@@ -136,7 +128,6 @@ class Game {
                 if (collisionResponse === "Over") {
                     this.redraw();
                     this.endGame();
-                    console.log(`Killed by enemy:${enemy.getId()}` );
                     return;
                 } else if (collisionResponse === "Score") {
                     this.score += 5;
@@ -145,37 +136,11 @@ class Game {
 
             if (enemy.getShape() === "square") {
                 (enemy as Random).move();
-            } else if (enemy.getShape() === "circle") {
+            } else  {
                 enemy.move(playerCoordinates[0], playerCoordinates[1])
             }
         }
 
-        let collisionMatrix: boolean[][] = [];
-        for (let i = 0; i < this.chasers.length; i++) {
-            collisionMatrix[i] = [];
-            for (let j = 0; j < this.chasers.length; j++) {
-                collisionMatrix[i][j] = false;
-            }
-        }
-
-        this.shuffleArray(this.chasers);
-        for (let i = 0; i < this.chasers.length; i++) {
-
-            this.chasers[i].move(playerCoordinates[0], playerCoordinates[1]);
-            let canMove: boolean = true;
-            for (let j = 0; j < this.chasers.length; j++) {
-                if (this.chasers[i].getId() === this.chasers[j].getId() || collisionMatrix[i][j] === true)
-                    continue;
-                if (this.chasers[i].checkCollision(this.chasers[j])) {
-                    canMove = false;
-                    collisionMatrix[j][i] = true;
-                    break;
-                }
-            }
-            if (!canMove) {
-                this.chasers[i].revert();
-            }
-        }
 
         this.redraw();
     }

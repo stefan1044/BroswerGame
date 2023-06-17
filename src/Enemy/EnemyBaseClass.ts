@@ -19,7 +19,6 @@ export default abstract class EnemyBaseClass {
         this.x = x;
         this.y = y;
         this.id = id;
-        console.log(`Enemy speed multiplier:${speedMultiplier}`);
 
         this.speed = (Math.random() / 250) * speedMultiplier;
         this.speedMultiplier = speedMultiplier;

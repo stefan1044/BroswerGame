@@ -2,6 +2,7 @@ import Chaser from "./Chaser";
 import Escape from "./Escape";
 import Random from "./Random";
 import {EnemyTypes} from "./EnemyEnums";
+import EnemyBaseClass from "./EnemyBaseClass";
 
 
 // Factory class to create new enemies
@@ -15,7 +16,7 @@ class EnemyFactory {
     }
 
     // Creates a random enemy at a random location
-    public getRandomEnemy(): Chaser | Escape | Random {
+    public getRandomEnemy(): EnemyBaseClass {
 
         const temp: number = Math.floor(Math.random() * 3);
         let x: number = Math.random() * 88;
@@ -38,7 +39,7 @@ class EnemyFactory {
     }
 
     // Creates a specific enemy at a random location.
-    public getSpecificEnemy(type: EnemyTypes): Chaser | Escape | Random {
+    public getSpecificEnemy(type: EnemyTypes): EnemyBaseClass {
         let x: number = Math.random() * 88;
         let y: number = Math.random() * 88;
         while ((x > 35 && x < 65) && (y > 35 && y < 65)) {
